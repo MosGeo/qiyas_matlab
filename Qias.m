@@ -111,9 +111,17 @@ classdef Qias
             % Main
             units = Graph.Nodes;
         end
-       % ============================================
-
-        
+        % ============================================
+        function [] = graphPlot(Graph)
+            
+            % Assertions
+            assert(exist('Graph','var')==true && isa(Graph, 'digraph'), 'Graph must be a digraph');
+            
+            % Main
+            plot(Graph, 'Layout','force', 'EdgeLabel',Graph.Edges.Weight);
+        end
+        % ============================================
+   
     end
 
 end
