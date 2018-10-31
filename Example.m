@@ -10,7 +10,7 @@
 qs = Qias(true);
 qs.getProperties()
 units = qs.getUnits('Distance')
-[valueUnitTo, multiplier, pathUsed] = qs.convert(5, 'm', 'in', 'Distance')
+[valueUnitTo, multiplier] = qs.convert(5, 'm', 'in', 'Distance')
 
 %% Static
 
