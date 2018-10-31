@@ -56,16 +56,16 @@ classdef Qias
         % ============================================
         function units = getUnits(obj, graphName)
             Graph = obj.getGraph(graphName);
-            units = Graph.Nodes;
+            units = Qias.graphUnits(Graph);
         end
         % ============================================
         function properties = getProperties(obj)
             properties = keys(obj.Graphs);
         end
         % ============================================
-        function [valueUnitTo, multiplier] = convert(obj, valueUnitFrom, unitFrom, unitTo, graphName)
+        function [valueUnitTo, multiplier, pathUsed] = convert(obj, valueUnitFrom, unitFrom, unitTo, graphName)
             Graph = obj.getGraph(graphName);
-            [valueUnitTo, multiplier] = Qias.graphConvert(valueUnitFrom, unitFrom, unitTo, Graph);
+            [valueUnitTo, multiplier, pathUsed] = Qias.graphConvert(valueUnitFrom, unitFrom, unitTo, Graph);
         end
         % ============================================
         function [] = optimize(obj)
@@ -124,7 +124,7 @@ classdef Qias
             Graph = digraph(fullGraphTable{:,1}, fullGraphTable{:,2}, fullGraphTable{:,3});  
         end    
         % ============================================
-        function [valueUnitTo, multiplier] = graphConvert(valueUnitFrom, unitFrom, unitTo, Graph)
+        function [valueUnitTo, multiplier, pathUsed] = graphConvert(valueUnitFrom, unitFrom, unitTo, Graph)
             
             % Assertions
             assert(exist('valueUnitFrom','var')==true && isnumeric(valueUnitFrom), 'valueUnitFrom must be numeric');
@@ -136,9 +136,10 @@ classdef Qias
             directIndex = findedge(Graph, unitFrom, unitTo);
             if directIndex ~= 0
                 multiplier = Graph.Edges.Weight(directIndex);
+                pathUsed       = {unitFrom, unitTo};
             else
-                shortPath = shortestpath(Graph, unitFrom, unitTo, 'Method','unweighted');
-                idxOut = findedge(Graph,shortPath(1:end-1)',shortPath(2:end)');
+                pathUsed = shortestpath(Graph, unitFrom, unitTo, 'Method','unweighted');
+                idxOut = findedge(Graph,pathUsed(1:end-1)',pathUsed(2:end)');
                 multiplier = prod(Graph.Edges.Weight(idxOut));
             end
                 
@@ -148,7 +149,7 @@ classdef Qias
         % ============================================
         function units = graphUnits(Graph)
             assert(exist('Graph','var')==true && isa(Graph, 'digraph'), 'Graph must be a digraph');
-            units = Graph.Nodes;
+            units = table2cell(Graph.Nodes);
         end
         % ============================================
         function [axisHandle] = graphPlot(Graph)
