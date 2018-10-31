@@ -10,8 +10,10 @@
 % Recommended to switch assert to increase efficiency (do that after
 % testing the functions and making sure your workflow works). switchAssert
 % is part of the Matlab Debugging Toolbox (https://github.com/MosGeo/MatlabDebug)
-switchAssert(false)
 
+% switchAssert(false)
+
+% =========================
 % Qias operations
 qs = Qias(true);
 qs.getProperties()
