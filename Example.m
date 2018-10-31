@@ -7,19 +7,16 @@
 
 %% Class operations
 
+% Recommended to switch assert to increase efficiency (do that after
+% testing the functions and making sure your workflow works). switchAssert
+% is part of the Matlab Debugging Toolbox (https://github.com/MosGeo/MatlabDebug)
+switchAssert(false)
+
+% Qias operations
 qs = Qias(true);
 qs.getProperties()
-units = qs.getUnits('Distance')
+qs.getUnits('Distance')
 [valueUnitTo, multiplier] = qs.convert(5, 'm', 'in', 'Distance')
-
-%% Static
-
-graphFileName = 'C:\Users\malibrah\Documents\GitHub\Qias\Graphs\Distance.csv';
-Graph = Qias.graphLoad(graphFileName);
-Graph = Qias.graphOptimize(Graph)
-Qias.graphPlot(Graph)
-units = Qias.graphUnits(Graph);
-value = Qias.graphConvert(5, 'm', 'in', Graph)
 
 
 
