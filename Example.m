@@ -7,7 +7,7 @@
 
 %% Class operations
 
-% Recommended to switch assert to increase efficiency (do that after
+% Recommended to switch assert off to increase efficiency (do that after
 % testing the functions and making sure your workflow works). switchAssert
 % is part of the Matlab Debugging Toolbox (https://github.com/MosGeo/MatlabDebug)
 
