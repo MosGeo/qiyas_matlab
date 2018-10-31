@@ -7,8 +7,8 @@
 
 %% Class operations
 
-qs = Qias();
-properties = qs.getProperties();
+qs = Qias(true);
+qs.getProperties()
 units = qs.getUnits('Distance');
 value = qs.convert(5, 'm', 'in', 'Distance')
 
@@ -16,8 +16,10 @@ value = qs.convert(5, 'm', 'in', 'Distance')
 
 graphFileName = 'C:\Users\malibrah\Documents\GitHub\Qias\Graphs\Distance.csv';
 Graph = Qias.graphLoad(graphFileName);
+Graph = Qias.graphOptimize(Graph)
+Qias.graphPlot(Graph)
 units = Qias.graphUnits(Graph);
-value = qs.graphConvert(5, 'm', 'in', Graph)
+value = Qias.graphConvert(5, 'm', 'in', Graph)
 
 
 

@@ -16,14 +16,11 @@ classdef Qias
         function obj = Qias(isOptimize, graphsFolder)
             
             % Defaults
-            if ~exist('isOptimize', 'var'); isOptimize = false; end
+            if 
             if ~exist('graphsFolder', 'var')
                 libraryFolder = fileparts(mfilename('fullpath'));
                 graphsFolder  = fullfile(libraryFolder, 'Graphs');
             end
-            
-            % Assertions
-            assert(isa(isOptimize, 'logical') && isscalar(isOptimize), 'isOptimize must be logical scalar');
             
             % Main
             graphsName = Qias.graphNamesFromFolder(graphsFolder);
@@ -33,10 +30,6 @@ classdef Qias
                 assert(all(conncomp(Graph)==1), 'Graph is not connected. Make sure the input data is correct');
                 obj.Graphs(graphsName{i}) = Graph;
             end
-            
-            % Optimize if requested
-            if isOptimize == true; obj.optimize(); end
-            
         end
         % ============================================
         function Graph = getGraph(obj, graphName)
