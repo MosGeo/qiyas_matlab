@@ -15,7 +15,7 @@
 
 % =========================
 % Qias operations
-qs = Qias(true);
+qs = Qias();
 qs.getProperties()
 qs.getUnits('Distance')
 [valueUnitTo, multiplier] = qs.convert(5, 'm', 'in', 'Distance')

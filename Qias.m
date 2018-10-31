@@ -80,7 +80,7 @@ classdef Qias
         % ============================================
         function [axisHandle] = plot(obj, graphName)
             Graph = obj.getGraph(graphName);
-            [axisHandle] = graphPlot(Graph);
+            [axisHandle] = Qias.graphPlot(Graph);
         end
         % ============================================
 
