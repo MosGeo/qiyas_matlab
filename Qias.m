@@ -1,15 +1,25 @@
 classdef Qias
-%% Qias: Unit conversion with Matlab
+%% Qias:
+% Unit Conversion in Matlab with the ability to quickly add new units. The 
+% code is based on graph theory to determine the relationships between 
+% units. Because of this, only one conversion factor need to be provided 
+% for each new unit. The code can relate to other units automatically.
 %
 % Mustafa Al Ibrahim @ 2018
 % Mustafa.Geoscientist@outlook.com
 
-%%
+%% Properties
+% Properties used to hold the information of the library. In this case, it
+% holds the graphs used in the unit conversion.
+
     properties (Access = private)
-        Graphs = containers.Map;
-        
+        Graphs = containers.Map;      
     end
+    
 %% Methods (instance)
+% This are the main functions of the library that the user interact with.
+% The engine of the library is in the static methods section.
+
     methods
         
         % ============================================
@@ -59,17 +69,27 @@ classdef Qias
         end
         % ============================================
         function [] = optimize(obj)
-            
+            % Note: optimization might take time but it will make
+            % subsequent convertion much faster. This is useful if the 
+            % conversion function will be called a lot.
             properties = obj.getProperties();
             for i = 1:numel(properties)
                 obj.Graphs(properties{i}) = Qias.graphOptimize(obj.Graphs(properties{i}));
-            end
-            
+            end           
+        end
+        % ============================================
+        function [axisHandle] = plot(obj, graphName)
+            Graph = obj.getGraph(graphName);
+            [axisHandle] = graphPlot(Graph);
         end
         % ============================================
 
     end
 %% Methods (static)
+% The static methods operate mostly on one graph. They are useful for using
+% the library without instantiation. They are also useful for internal
+% testing of the code. Casual user does not need to use them. All function
+% names start with "graph" 
 
     methods (Static)
         
@@ -131,9 +151,9 @@ classdef Qias
             units = Graph.Nodes;
         end
         % ============================================
-        function [] = graphPlot(Graph)
+        function [axisHandle] = graphPlot(Graph)
             assert(exist('Graph','var')==true && isa(Graph, 'digraph'), 'Graph must be a digraph');
-            plot(Graph, 'Layout','force', 'EdgeLabel',Graph.Edges.Weight);
+            axisHandle = plot(Graph, 'Layout','force', 'EdgeLabel',Graph.Edges.Weight);
         end
         % ============================================
         function Graph = graphOptimize(Graph)
@@ -159,9 +179,6 @@ classdef Qias
 
         end
         % ============================================
-
-    
-
     end
 
 end
