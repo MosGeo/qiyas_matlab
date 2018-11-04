@@ -1,2 +1,5 @@
-Unit1,Unit2,Unit1OverUnit2
-kg,g,1000
+Unit1,Unit1Name,Unit2,Unit2Name,Unit1OverUnit2
+kg,Kilogram,g,Gram,1000
+lb,Pound,kg,Kilogram,0.45359237
+g,Gram,mg,Milligram,1000
+lb,Pound,oz,Ounce,16
