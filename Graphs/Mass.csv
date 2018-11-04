@@ -3,3 +3,4 @@ kg,Kilogram,g,Gram,1000
 lb,Pound,kg,Kilogram,0.45359237
 g,Gram,mg,Milligram,1000
 lb,Pound,oz,Ounce,16
+t,Tonne,kg,Kilogram,1000

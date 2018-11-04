@@ -1,0 +1,10 @@
+Unit1,Unit1Name,Unit2,Unit2Name,Unit1OverUnit2
+s,Second,ms,Millisecond,1000
+min,Minute,s,Second,60
+h,Hour,min,Minute,60
+d,Day,h,Hour,24
+y,Year,d,Day,365
+s,Second,um,Microsecond,1000000
+week,Week,d,Day,7
+s,Second,ns,Nanosecond,1000000000
+y,Year,month,Month,12
