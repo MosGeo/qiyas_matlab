@@ -1,0 +1,6 @@
+Unit1,Unit1Name,Unit2,Unit2Name,Unit1OverUnit2
+bar,Bar,Pa,Pascal,100000
+MPa,Megapascal,Pa,Pascal,1000000
+GPa,Gigapascal,MPa,Megapascal,1000
+bar,Bar,psi,Psi,14.50377377
+atm,Standard atmosphere,bar,Bar,1.01325

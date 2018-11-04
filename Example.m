@@ -17,8 +17,8 @@
 % Qias operations
 qs = Qias();
 qs.getProperties()
-qs.getUnits('Distance')
-[valueUnitTo, multiplier] = qs.convert(1, 'm', 'in', 'Distance')
+qs.getUnits('Time')
+[valueUnitTo, multiplier] = qs.convert(2, 'm', 'in', 'Distance')
 
 
 
