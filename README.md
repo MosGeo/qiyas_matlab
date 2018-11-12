@@ -5,8 +5,11 @@ Unit Conversion in Matlab with the ability to quickly add new units. The code is
 Here is an example of usage. First, the Qias object is loaded. Next, optionally, the available physical properties are printed. Next, optionally, the units for one physical property is printed. Finally, the Qias object is used to convert from one unit to another.
 
 qs = Qias();
+
 qs.getProperties()
+
 qs.getUnits('Time')
+
 [valueUnitTo, multiplier] = qs.convert(2, 'm', 'in', 'Distance')
 
 ## Reference
