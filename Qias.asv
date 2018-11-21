@@ -36,7 +36,7 @@ classdef Qias
             assert(isa(isOptimize, 'logical') && isscalar(isOptimize), 'isOptimize must be logical scalar');
             
             % Main
-            graphsName = Qias.graphNamesFromFolder(graphsFolder);
+            graphsName = Qias.graphNamesFromFolder(graphsFolder)
             for i = 1:numel(graphsName)
                 fileName = fullfile(graphsFolder, [graphsName{i}, '.csv']);
                 Graph = Qias.graphLoad(fileName);
@@ -106,7 +106,8 @@ classdef Qias
             
             graphsName = cell(nFiles,1);
             for i = 1:nFiles
-                grpahsName{i} = fileListing(i,:);
+                graphName = strtrim(fileListing(i,:));
+                graphsName{i} = graphName(:,1:end-4);
             end
         end
         % ============================================
@@ -129,10 +130,10 @@ classdef Qias
             Graph = digraph(fullGraphTable{:,1}, fullGraphTable{:,3}, fullGraphTable{:,5});
             
             % Store unit info
-            units = table2cell(sortrows(Graph.Nodes));
+            units = table2cell(Graph.Nodes);
             [~,Locb] = ismember(units, fullGraphTable{:,1});
             unitsName = fullGraphTable{Locb,2};
-            infoTable = cell2table([unitsName, units], 'VariableName', {'Name', 'Unit'});
+            infoTable = cell2table([units, unitsName], 'VariableName', {'Name', 'FullName'});
             Graph.Nodes = infoTable;
         end    
         % ============================================
@@ -161,7 +162,7 @@ classdef Qias
         % ============================================
         function units = graphUnits(Graph)
             assert(exist('Graph','var')==true && isa(Graph, 'digraph'), 'Graph must be a digraph');
-            units = table2cell(Graph.Nodes);
+            units = sortrows(Graph.Nodes);
         end
         % ============================================
         function [axisHandle] = graphPlot(Graph)
@@ -177,6 +178,7 @@ classdef Qias
             nUnits = numel(Graph.Nodes);
             
             combinations = nchoosek(1:nUnits,2);
+            units
             for i = 1:size(combinations,1)
                 [unitFrom, unitTo] = units{combinations(i,:)};
                 directIndex = findedge(Graph, unitFrom, unitTo);

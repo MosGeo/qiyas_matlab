@@ -160,9 +160,13 @@ classdef Qias
             
         end
         % ============================================
-        function units = graphUnits(Graph)
+        function units = graphUnits(Graph, isOnlyUnitName)
+            if ~exist('isOnlyUnitName', 'var'); isOnlyUnitName = false; end
             assert(exist('Graph','var')==true && isa(Graph, 'digraph'), 'Graph must be a digraph');
             units = sortrows(Graph.Nodes);
+            if isOnlyUnitName
+                units = units.Name;
+            end
         end
         % ============================================
         function [axisHandle] = graphPlot(Graph)
@@ -174,8 +178,8 @@ classdef Qias
             assert(exist('Graph','var')==true && isa(Graph, 'digraph'), 'Graph must be a digraph');
             
             % Main
-            units  = table2cell(Graph.Nodes); 
-            nUnits = numel(Graph.Nodes);
+            units = Qias.graphUnits(Graph, true);
+            nUnits = numel(units);
             
             combinations = nchoosek(1:nUnits,2);
             for i = 1:size(combinations,1)
