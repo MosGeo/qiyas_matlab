@@ -11,7 +11,7 @@ Here is an example of usage. Check the example file for more information.
 
 ```
 qs = Qias();
-[valueUnitTo, multiplier] = qs.convert(2, 'm', 'in')
+[valueUnitTo, multiplier, property] = qs.convert(2, 'm', 'in')
 ```
 
 ## How to add new units
