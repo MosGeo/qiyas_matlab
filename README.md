@@ -20,5 +20,9 @@ The “Graph” folder contain CSV files with some already available units. You 
 ## Behind the scene
 Graph theory is used to determine the relationship between any two units. For example, meters and feet can be defined in CSV file. Next, feet and yard relationship is defined. The algorithm uses the shortest path to automatically figure out the relationship between meter and yard. Here is an example of the input CSV file and the relationships that can be built from it automatically (right).
 
+<div align="center">
+    <img width=1000 src="https://github.com/MosGeo/ParticlePack/blob/master/ReadmeFiles/Process.png" alt="Process" title="Particle Generation Process"</img>
+</div>
+
 ## Reference
 I would love to hear from you if you are using this code in your work. My email is Mustafa.Geoscientist@outlook.com.
