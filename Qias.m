@@ -94,6 +94,7 @@ classdef Qias
         % ============================================
         function [axisHandle] = plot(obj, property)
             Graph = obj.getGraph(property);
+            figure('Color', 'White')
             [axisHandle] = Qias.graphPlot(Graph);
         end
         % ============================================

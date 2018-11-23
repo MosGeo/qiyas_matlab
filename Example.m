@@ -16,13 +16,13 @@
 % =========================
 %% Object loading
 
-% Qias load without optimization
-qs = Qias();
-
 % Qias load with optimization (useful performance improvment if you have a 
 % very large number of units or you are calling the convert function a very 
 % large number of times.
 qs = Qias(true); 
+
+% Qias load without optimization
+qs = Qias();
 
 %% Study the loaded units
 
@@ -42,6 +42,16 @@ qs.getUnits('Time')
 
 % Convert by explicitly specifying the property  
 [valueUnitTo, multiplier] = qs.convert(2, 'm', 'in', 'Distance')
+
+%% Extra
+
+% Plot the graph associated with a property
+qs.plot('Time')
+
+% Optimize (similar to load with optimization) and than graph again
+qs.optimize();
+qs.plot('Time')
+
 
 
 
