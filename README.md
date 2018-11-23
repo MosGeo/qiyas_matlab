@@ -25,4 +25,14 @@ Graph theory is used to determine the relationship between any two units. For ex
 </div>
 
 ## Reference
-I would love to hear from you if you are using this code in your work. My email is Mustafa.Geoscientist@outlook.com.
+I would love to hear from you if you are using this code in your work. My email is Mustafa.Geoscientist@outlook.com. You can reference the library using:
+
+```
+@Manual{Qias,
+  title  = {Qias, unit conversion in matlab},
+  author = {Mustafa Al Ibrahim},
+  year   = {2018},
+  note   = {matlab~package version~1.0},
+  url    = {https://github.com/MosGeo/Qia},
+}
+```
