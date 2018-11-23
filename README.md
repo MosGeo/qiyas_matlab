@@ -21,7 +21,7 @@ The “Graph” folder contain CSV files with some already available units. You 
 Graph theory is used to determine the relationship between any two units. For example, meters and feet can be defined in CSV file. Next, feet and yard relationship is defined. The algorithm uses the shortest path to automatically figure out the relationship between meter and yard. Here is an example of the input CSV file and the relationships that can be built from it automatically (right).
 
 <div align="center">
-    <img width=1000 src="https://github.com/MosGeo/Qias/tree/master/Figures/GraphExample.png" alt="Process" title="Graph example"</img>
+    <img width=1000 src="https://github.com/MosGeo/Qias/blob/master/Figures/GraphExample.png" alt="Graph" title="Graph example"</img>
 </div>
 
 ## Reference
