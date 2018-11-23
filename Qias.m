@@ -94,7 +94,6 @@ classdef Qias
         % ============================================
         function [axisHandle] = plot(obj, property)
             Graph = obj.getGraph(property);
-            figure('Color', 'White')
             [axisHandle] = Qias.graphPlot(Graph);
         end
         % ============================================
@@ -227,12 +226,13 @@ classdef Qias
         function [axisHandle] = graphPlot(Graph)
             assert(exist('Graph','var')==true && isa(Graph, 'digraph'), 'Graph must be a digraph');
             
+            figure('Color', 'White')
             edgeLabels = arrayfun(@(x) sprintf('%0.2g', x),Graph.Edges.Weight,...
                 'UniformOutput', false);
-
             axisHandle = plot(Graph, 'Layout','force', 'EdgeLabel',edgeLabels);
             axisHandle.EdgeColor  = 'r';
 
+            set(gca,'xticklabel',{[]}, 'yticklabel', {[]});
         end
         % ============================================
         function Graph = graphOptimize(Graph)
