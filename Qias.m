@@ -226,7 +226,13 @@ classdef Qias
         % ============================================
         function [axisHandle] = graphPlot(Graph)
             assert(exist('Graph','var')==true && isa(Graph, 'digraph'), 'Graph must be a digraph');
-            axisHandle = plot(Graph, 'Layout','force', 'EdgeLabel',Graph.Edges.Weight);
+            
+            edgeLabels = arrayfun(@(x) sprintf('%0.2g', x),Graph.Edges.Weight,...
+                'UniformOutput', false);
+
+            axisHandle = plot(Graph, 'Layout','force', 'EdgeLabel',edgeLabels);
+            axisHandle.EdgeColor  = 'r';
+
         end
         % ============================================
         function Graph = graphOptimize(Graph)
