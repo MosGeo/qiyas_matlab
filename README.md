@@ -7,11 +7,12 @@ Units can be annoying to handle in code. I had a couple of objectives:
 - Extendibility: new units can be added easily without modifying the code.
 
 ## Usage
-Here is an example of usage. Check the example file for more information.s
+Here is an example of usage. Check the example file for more information.
 
+```
 qs = Qias();
-
 [valueUnitTo, multiplier] = qs.convert(2, 'm', 'in')
+```
 
 ## How to add new units
 The “Graph” folder contain CSV files with some already available units. You can create new CSV files for new physical properties. In each CSV file, new units can be added and they only need to be defined based on one unit.
