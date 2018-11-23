@@ -19,31 +19,17 @@
 % Qias load without optimization
 qs = Qias();
 
-% Qias load with optimization (useful performance improvment if you have a 
-% very large number of units or you are calling the convert function a very 
-% large number of times.
+% Qias load with optimization (use
 qs = Qias(true); 
 
-%% Study the loaded units
 
-% Get the physical properties
 qs.getProperties()
-
-% Get all the units in the system
 qs.getUnits()
-
-% Get the units for a specific property
 qs.getUnits('Time')
 
-%% Conversion
+[valueUnitTo, multiplier, property] = qs.convert(2, 's', 'y')
 
-% Convert without specifying the property
-[valueUnitTo, multiplier, property] = qs.convert(2, 'm', 'ft')
-
-% Convert by explicitly specifying the property  
 [valueUnitTo, multiplier] = qs.convert(2, 'm', 'in', 'Distance')
-
-
 
 
 
