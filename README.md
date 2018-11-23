@@ -8,7 +8,9 @@ Units can be annoying to handle in code. I had a couple of objectives:
 
 ## Usage
 Here is an example of usage
+
 qs = Qias();
+
 [valueUnitTo, multiplier] = qs.convert(2, 'm', 'in', 'Distance')
 
 ## How to add new units
