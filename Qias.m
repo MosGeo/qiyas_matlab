@@ -13,7 +13,8 @@ classdef Qias
 % holds the graphs used in the unit conversion.
 
     properties (Access = private)
-        Graphs = containers.Map;      
+        Graphs = containers.Map;
+        Units = [];
     end
     
 %% Methods (instance)
@@ -36,36 +37,56 @@ classdef Qias
             assert(isa(isOptimize, 'logical') && isscalar(isOptimize), 'isOptimize must be logical scalar');
             
             % Main
-            graphsName = Qias.graphNamesFromFolder(graphsFolder)
-            for i = 1:numel(graphsName)
-                fileName = fullfile(graphsFolder, [graphsName{i}, '.csv']);
+            properties = Qias.graphNamesFromFolder(graphsFolder);
+            for i = 1:numel(properties)
+                fileName = fullfile(graphsFolder, [properties{i}, '.csv']);
                 Graph = Qias.graphLoad(fileName);
                 assert(all(conncomp(Graph)==1), 'Graph is not connected. Make sure the input data is correct');
-                obj.Graphs(graphsName{i}) = Graph;
+                obj.Graphs(properties{i}) = Graph;
             end
             
             % Optimize if requested
             if isOptimize == true; obj.optimize(); end
             
+            % Accumulate all units
+            obj.Units = obj.getAllUnits();
+            
         end
         % ============================================
-        function Graph = getGraph(obj, graphName)
-            assert(ismember(graphName,keys(obj.Graphs)), 'Graph not found');
-            Graph = obj.Graphs(graphName); 
+        function Graph = getGraph(obj, property)
+            assert(ismember(property,keys(obj.Graphs)), 'Graph not found');
+            Graph = obj.Graphs(property); 
         end
         % ============================================
-        function units = getUnits(obj, graphName)
-            Graph = obj.getGraph(graphName);
-            units = Qias.graphUnits(Graph);
+        function units = getUnits(obj, property)
+            units = obj.Units;
+
+            if exist('graphName', 'var')
+                units = units(ismember(units.Property, property), :);
+            end
         end
         % ============================================
         function properties = getProperties(obj)
             properties = keys(obj.Graphs);
         end
         % ============================================
-        function [valueUnitTo, multiplier, pathUsed] = convert(obj, valueUnitFrom, unitFrom, unitTo, graphName)
-            Graph = obj.getGraph(graphName);
+        function [valueUnitTo, multiplier, property, pathUsed] = convert(obj, valueUnitFrom, unitFrom, unitTo, property)
+            
+            if ~exist('graphName', 'var')
+                properties = unit2Property(obj, unitFrom, unitTo);
+                if numel(properties) ==1
+                    property = properties{1};
+                elseif numel(properties) == 0
+                    error('Units not found in the same property');
+                else                   
+                    disp('Found more than one property'); disp(char(properties));
+                    error('Choose a specific property when calling the function');
+                end    
+            end
+            
+            Graph = obj.getGraph(property);
             [valueUnitTo, multiplier, pathUsed] = Qias.graphConvert(valueUnitFrom, unitFrom, unitTo, Graph);
+        
         end
         % ============================================
         function [] = optimize(obj)
@@ -78,13 +99,45 @@ classdef Qias
             end           
         end
         % ============================================
-        function [axisHandle] = plot(obj, graphName)
-            Graph = obj.getGraph(graphName);
+        function [axisHandle] = plot(obj, property)
+            Graph = obj.getGraph(property);
             [axisHandle] = Qias.graphPlot(Graph);
         end
         % ============================================
 
     end
+    
+%% Methods (private)
+% The static methods operate the object but they are not exposed to the
+% user. They are support functions
+
+    methods (Access = private)
+        
+        function properites = unit2Property(obj, unitFrom, unitTo)
+           
+            unitFromIndex = ismember(unitFrom, obj.Units.Name);
+            unitToIndex = ismember(unitTo, obj.Units.Name);
+            
+            unitFromProperty = obj.Units.Property(unitFromIndex)
+            unitToProperty = obj.Units.Property(unitToIndex)
+            
+            properites = intersect(unitFromProperty, unitToProperty) 
+        end
+        % ============================================
+        function allUnits = getAllUnits(obj)
+            properties = obj.getProperties();
+            allUnits = cell2table(cell(0,3), 'VariableNames', {'Name','FullName', 'Property'});
+            for i = 1:numel(properties)
+                Graph = obj.getGraph(properties{i});
+                units = Qias.graphUnits(Graph);
+                units.Property = repmat({properties{i}}, size(units,1),1);
+                allUnits = vertcat(allUnits, units);
+            end
+        end
+        % ============================================
+   
+    end
+    
 %% Methods (static)
 % The static methods operate mostly on one graph. They are useful for using
 % the library without instantiation. They are also useful for internal
