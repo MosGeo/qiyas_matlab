@@ -61,7 +61,7 @@ classdef Qias
         function units = getUnits(obj, property)
             units = obj.Units;
 
-            if exist('graphName', 'var')
+            if exist('property', 'var')
                 units = units(ismember(units.Property, property), :);
             end
         end
@@ -72,16 +72,9 @@ classdef Qias
         % ============================================
         function [valueUnitTo, multiplier, property, pathUsed] = convert(obj, valueUnitFrom, unitFrom, unitTo, property)
             
-            if ~exist('graphName', 'var')
-                properties = unit2Property(obj, unitFrom, unitTo);
-                if numel(properties) ==1
-                    property = properties{1};
-                elseif numel(properties) == 0
-                    error('Units not found in the same property');
-                else                   
-                    disp('Found more than one property'); disp(char(properties));
-                    error('Choose a specific property when calling the function');
-                end    
+            if ~exist('property', 'var')
+                properties = obj.unit2Property(unitFrom, unitTo);
+                property   = obj.checkPropertyAndPrompt(properties);
             end
             
             Graph = obj.getGraph(property);
@@ -114,14 +107,22 @@ classdef Qias
     methods (Access = private)
         
         function properites = unit2Property(obj, unitFrom, unitTo)
-           
-            unitFromIndex = ismember(unitFrom, obj.Units.Name);
-            unitToIndex = ismember(unitTo, obj.Units.Name);
-            
-            unitFromProperty = obj.Units.Property(unitFromIndex)
-            unitToProperty = obj.Units.Property(unitToIndex)
-            
-            properites = intersect(unitFromProperty, unitToProperty) 
+            unitFromIndex = ismember(obj.Units.Name, unitFrom);
+            unitToIndex = ismember(obj.Units.Name, unitTo);   
+            unitFromProperty = obj.Units.Property(unitFromIndex);
+            unitToProperty = obj.Units.Property(unitToIndex);
+            properites = intersect(unitFromProperty, unitToProperty);
+        end
+        % ============================================
+        function property = checkPropertyAndPrompt(obj, properties)
+            if numel(properties) ==1
+                property = properties{1};
+            elseif numel(properties) == 0
+                error('Units not found in the same property');
+            else                   
+                disp('Found more than one property'); disp(char(properties));
+                error('Choose a specific property when calling the function');
+            end                     
         end
         % ============================================
         function allUnits = getAllUnits(obj)
