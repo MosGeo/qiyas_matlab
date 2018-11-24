@@ -43,6 +43,10 @@ qs.getUnits('Time')
 % Convert by explicitly specifying the property  
 [valueUnitTo, multiplier] = qs.convert(2, 'm', 'in', 'Distance')
 
+% Get multiplier
+[multiplier, property, pathUsed] = qs.getMultiplier('m', 'ft', 'Distance')
+[multiplier, property, pathUsed] = qs.getMultiplier('m', 'ft')
+
 %% Extra
 
 % Plot the graph associated with a property

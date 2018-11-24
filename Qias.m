@@ -82,6 +82,18 @@ classdef Qias
         
         end
         % ============================================
+        function [multiplier, property, pathUsed] = getMultiplier(obj, unitFrom, unitTo, property)
+            
+            if ~exist('property', 'var')
+                properties = obj.unit2Property(unitFrom, unitTo);
+                property   = obj.checkPropertyAndPrompt(properties);
+            end
+            
+            Graph = obj.getGraph(property);
+            [multiplier, pathUsed] = Qias.graphGetMultiplier(Graph, unitFrom, unitTo);
+            
+        end
+        % ============================================
         function [] = optimize(obj)
             % Note: optimization might take time but it will make
             % subsequent convertion much faster. This is useful if the 
@@ -200,6 +212,14 @@ classdef Qias
             assert(exist('Graph','var')==true && isa(Graph, 'digraph'), 'Graph must be a digraph');
             
             % Main
+
+            [multiplier, pathUsed] = Qias.graphGetMultiplier(Graph, unitFrom, unitTo);     
+            valueUnitTo = valueUnitFrom * multiplier;
+            
+        end
+        % ============================================
+        function [multiplier, pathUsed] = graphGetMultiplier(Graph, unitFrom, unitTo)
+            
             directIndex = findedge(Graph, unitFrom, unitTo);
             if directIndex ~= 0
                 multiplier = Graph.Edges.Weight(directIndex);
@@ -209,9 +229,6 @@ classdef Qias
                 idxOut = findedge(Graph,pathUsed(1:end-1)',pathUsed(2:end)');
                 multiplier = prod(Graph.Edges.Weight(idxOut));
             end
-                
-            valueUnitTo = valueUnitFrom * multiplier;
-            
         end
         % ============================================
         function units = graphUnits(Graph, isOnlyUnitName)
@@ -226,13 +243,13 @@ classdef Qias
         function [axisHandle] = graphPlot(Graph)
             assert(exist('Graph','var')==true && isa(Graph, 'digraph'), 'Graph must be a digraph');
             
-            
+            figure('Color', 'White')
             edgeLabels = arrayfun(@(x) sprintf('%0.2g', x),Graph.Edges.Weight,...
                 'UniformOutput', false);
-
             axisHandle = plot(Graph, 'Layout','force', 'EdgeLabel',edgeLabels);
             axisHandle.EdgeColor  = 'r';
 
+            set(gca,'xticklabel',{[]}, 'yticklabel', {[]});
         end
         % ============================================
         function Graph = graphOptimize(Graph)
