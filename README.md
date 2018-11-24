@@ -36,6 +36,6 @@ I would love to hear from you if you are using this code in your work. My email 
   author = {Mustafa Al Ibrahim},
   year   = {2018},
   note   = {matlab~package version~1.0},
-  url    = {https://github.com/MosGeo/Qia},
+  url    = {https://github.com/MosGeo/Qias},
 }
 ```
