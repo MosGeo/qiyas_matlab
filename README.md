@@ -4,7 +4,8 @@ Unit Conversion in Matlab with the ability to quickly add new units. The code is
 ## Why a library for a simple thing such as units?
 Units can be annoying to handle in code. I had a couple of objectives for writing this code (aside from it being a cool very practical application of graph theory):
 - Reusability: a code that I can use in multiple projects.
-- Extendibility: new units can be added easily without modifying the code.
+- Extendibility: new units and physical properties can be added easily without modifying the code at all.
+- Simplicity: calling functions should be intuitive for Matlab users.
 
 ## Usage
 Here is an example of usage. Check the example file for more information.
