@@ -1,5 +1,5 @@
 # Qias - unit conversion in Matlab
-Unit Conversion in Matlab with the ability to quickly add new units. The code is based on graph theory to determine the relationships between units. Because of this, only one conversion factor need to be provided for each new unit. The code can relate to other units automatically.
+Unit Conversion in Matlab with the ability to quickly add new units. The code is based on graph theory to determine the relationships between units. Because of this, only one conversion factor need to be provided for each new unit. There is no need to define all units in one standard unit. The code can relate to other units automatically.
 
 ## Why a library for a simple thing such as units?
 Units can be annoying to handle in code. I had a couple of objectives for writing this code (aside from it being a cool very practical application of graph theory):
