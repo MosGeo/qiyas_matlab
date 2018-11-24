@@ -24,6 +24,9 @@ Graph theory is used to determine the relationship between any two units. For ex
     <img width=1000 src="https://github.com/MosGeo/Qias/blob/master/Figures/GraphExample.png" alt="Graph" title="Graph example"</img>
 </div>
 
+## Requirement
+The code is tested on Matlab 2018a but, as far as I know, it should work on older versions and it should not need any special toolboxes besides the basic core Matlab.
+
 ## Reference
 I would love to hear from you if you are using this code in your work. My email is Mustafa.Geoscientist@outlook.com. You can reference the library using:
 
