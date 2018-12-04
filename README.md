@@ -16,7 +16,7 @@ qs = Qias();
 ```
 
 ## How to add new units
-The “Graph” folder contain CSV files with some already available units. You can create new CSV files for new physical properties. In each CSV file, new units can be added and they only need to be defined based on one unit.
+The “Graph” folder contain CSV files with some already available units. You can create new CSV files for new physical properties. In each CSV file, new units can be added and they only need to be defined based on one unit. If you created a nice CSV file for new physical property or extended one that is already there. Please give me a shout and I will add it.
 
 ## Behind the scenes
 Graph theory is used to determine the relationship between any two units. For example, meters and feet can be defined in CSV file. Next, feet and yard relationship is defined. The algorithm uses the shortest path to automatically figure out the relationship between meter and yard. Here is an example of the input CSV file (left) and the relationships that can be built from it automatically (right).
